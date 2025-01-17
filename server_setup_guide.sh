@@ -4,12 +4,13 @@
 # We do not guarantee the accuracy, completeness, or functionality of the changes made in your specific environment.
 # USE AT YOUR OWN RISK. We claim no liability for any damages or losses that may occur.
 
+#################################################################### VIDEO 3 STARTS HERE: https://youtu.be/fRnlBNpX1p0
 # From Fresh Install:
 sudo apt-get update
 ##### Github
 sudo apt-get install git-all
 
-##### Docker and Docker Compose
+##### Docker and Docker Compose workflow
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
@@ -33,18 +34,21 @@ newgrp docker
 # Verify installation and permissions
 docker run hello-world
 
-
-##### MERGIN MAPS. THIS SECTION STILL NEEDS WORK; INTEGRATE WITH 
+#################################################################### STOP VIDEO 3 
+#################################################################### START VIDEO 4 HERE
+##### MERGIN MAPS. 
 # https://github.com/geoace/enterprise_setup_and_customization/blob/main/mergin_server_setup.md
 git clone https://github.com/MerginMaps/server.git
 mv server mergin
 sudo rm -r server
 cd mergin
 rm .prod.env
+# MAKE THIS FILE SPECIFIC TO YOUR DEPLOYMENT AND PASTE IT IN AFTER RUNNING THE NEXT COMMAND: https://github.com/geoace/mergin_tutorials/blob/main/.prod.env. 
+# If using GMAIL account, then MAIL_PASSWORD should be generated at https://myaccount.google.com/apppasswords
 nano .prod.env
-# PASTE CONTENT FROM https://github.com/geoace/enterprise_setup_and_customization/blob/main/mergin.prod.env
-# But change MERGIN_BASE_URL and MAIL_PASSWORD as necessary
-# MAIL_PASSWORD should be generated at https://myaccount.google.com/apppasswords
+
+#################################################################### STOP VIDEO 4
+#################################################################### START VIDEO 5 HERE
 rm nginx.conf
 nano nginx.conf
 # PASTE CONTENT FROM https://github.com/geoace/enterprise_setup_and_customization/blob/main/mergin_nginx.conf
