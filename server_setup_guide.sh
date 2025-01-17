@@ -26,6 +26,14 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 # Verify installation
 sudo docker run hello-world
 
+# Setup running Docker without sudo (required for Lizmap stack; source: https://docs.docker.com/engine/install/linux-postinstall/)
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+# Verify installation and permissions
+docker run hello-world
+
+
 ##### MERGIN MAPS. THIS SECTION STILL NEEDS WORK; INTEGRATE WITH 
 # https://github.com/geoace/enterprise_setup_and_customization/blob/main/mergin_server_setup.md
 git clone https://github.com/MerginMaps/server.git
