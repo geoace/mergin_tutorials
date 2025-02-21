@@ -87,31 +87,5 @@ docker compose up -d
 
 #################################################################### STOP VIDEO 4
 #################################################################### START VIDEO 5 HERE
-##### MERGIN MAPS. 
-git clone https://github.com/MerginMaps/server.git
-mv server mergin
-sudo rm -r server
-cd mergin
-rm .prod.env
-# MAKE THIS FILE SPECIFIC TO YOUR DEPLOYMENT AND PASTE IT IN AFTER RUNNING THE NEXT COMMAND: https://github.com/geoace/mergin_tutorials/blob/main/.prod.env 
-# If using GMAIL account, then MAIL_PASSWORD should be generated at https://myaccount.google.com/apppasswords
-nano .prod.env
 
-
-rm nginx.conf
-nano nginx.conf
-# MODIFY AND PASTE CONTENT FROM https://github.com/geoace/mergin_tutorials/blob/main/nginx.conf
-# But change server_name on 80 and 443 code blocks as necessary
-# Same with SSL Certificates
-
-# docker compose file
-rm docker-compose.yml
-# MAKE THIS FILE SPECIFIC TO YOUR DEPLOYMENT AND PASTE CONTENT FROM https://github.com/geoace/mergin_tutorials/blob/main/docker-compose.yml
-nano docker-compose.yml
-
-
-#################################################################### STOP VIDEO 5
-#################################################################### START VIDEO 6 HERE
-#################################################################### STOP VIDEO 6
-#################################################################### START VIDEO 7 HERE
 
