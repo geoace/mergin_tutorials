@@ -82,6 +82,9 @@ docker rm $(docker ps -aq) -f
 
 # Run the docker containers
 docker compose up -d
+
+# Navigate to https://yourdomain.com to verify that you're running using SSL/HTTPS!
+
 #################################################################### STOP VIDEO 4
 #################################################################### START VIDEO 5 HERE
 ##### MERGIN MAPS. 
