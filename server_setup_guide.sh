@@ -36,6 +36,54 @@ docker run hello-world
 
 #################################################################### STOP VIDEO 3 
 #################################################################### START VIDEO 4 HERE
+
+# Before getting started: Make sure that APACHE or on-VM NGINX aren't installed. Google cloud sometimes comes with apache installed by default.
+# Taken from: git clone https://github.com/geoace/certbot-nginx.git
+sudo systemctl stop apache2
+
+sudo systemctl disable apache2
+
+sudo apt remove --purge apache2 -y
+
+sudo apt autoremove -y
+
+#Git clone the repository
+git clone https://github.com/geoace/certbot-nginx.git
+
+cd certbot-nginx
+
+# make startup executable
+chmod +x start-nginx.sh
+
+# Make conf directories
+mkdir conf
+
+# Copy the env file
+cp .env.template .env
+
+# Modify the environment variables to suit your deployment
+nano .env
+
+docker compose up -d
+
+# Visit the IP address of your virtual machine UNSECURED using HTTP and ensure your home page exists (e.g., http://niner.com)
+
+# Once you've verified that you're up and running, then remove the containers
+docker rm $(docker ps -aq) -f
+
+# Set up Domains between GCP and Registrar (Siteground is used in the video tutorial)
+# ONCE DNS Zones and Nameservers are linked between GCP and Siteground/registrar:
+
+# Run docker compose to get the certificates
+docker compose up
+
+# Exit the containers using Control + C, and then remove them (certificates have been received, but NGINX is still not running via SSL due to configuration file contents; certificates WILL persist)
+docker rm $(docker ps -aq) -f
+
+# Run the docker containers
+docker compose up -d
+#################################################################### STOP VIDEO 4
+#################################################################### START VIDEO 5 HERE
 ##### MERGIN MAPS. 
 git clone https://github.com/MerginMaps/server.git
 mv server mergin
@@ -46,8 +94,7 @@ rm .prod.env
 # If using GMAIL account, then MAIL_PASSWORD should be generated at https://myaccount.google.com/apppasswords
 nano .prod.env
 
-#################################################################### STOP VIDEO 4
-#################################################################### START VIDEO 5 HERE
+
 rm nginx.conf
 nano nginx.conf
 # MODIFY AND PASTE CONTENT FROM https://github.com/geoace/mergin_tutorials/blob/main/nginx.conf
