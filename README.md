@@ -132,7 +132,6 @@ Clone Mergin Maps Server
 cd # go to your base directory
 mkdir postgis_data
 git clone https://github.com/MerginMaps/server.git mergin
-cd mergin
 sudo rm -r mergin/.git
 ```
 
