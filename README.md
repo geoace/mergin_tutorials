@@ -129,7 +129,7 @@ sudo rm -r certbot-nginx
 
 Clone Mergin Maps Server
 ```bash
-cd # go to home directory
+cd # go to your base directory
 mkdir postgis_data
 git clone https://github.com/MerginMaps/server.git mergin
 cd mergin
@@ -138,7 +138,7 @@ sudo rm -r mergin/.git
 
 Add GEOACE remote and merge:
 ```bash
-cd # go to home directory
+cd # go to base directory
 git clone https://github.com/geoace/mergin_tutorials
 cp -r mergin_tutorials/. mergin/
 sudo rm -r mergin_tutorials
