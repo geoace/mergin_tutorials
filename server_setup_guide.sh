@@ -88,4 +88,42 @@ docker compose up -d
 #################################################################### STOP VIDEO 4
 #################################################################### START VIDEO 5 HERE
 
+# Initial Stack Setup
+git clone https://github.com/MerginMaps/server.git mergin
+
+cd mergin
+
+git remote add mergin git@github.com:geoace/mergin.git
+
+git fetch mergin
+
+git merge --allow-unrelated-histories mergin/main --no-commit --no-ff
+
+git checkout --theirs . 
+
+chmod +x start-nginx.sh
+
+cp .env.template .env
+
+# Open the new .env file and modify the environment variables to suit your deployment
+
+nano .env
+
+### The following section is based off the Mergin Maps-documented general installation instructions which can be found here: https://merginmaps.com/docs/server/install/
+mkdir -p projects # or wherever you set it to be
+
+sudo chown -R  901:999 ./projects/
+
+sudo chmod g+s ./projects/
+
+docker compose up -d
+
+FIRST TIME ONLY: Initialize the database
+
+docker exec merginmaps-server flask init-db
+
+docker exec merginmaps-server flask user create <username> <password> --is-admin --email <email>
+
+
+
 
