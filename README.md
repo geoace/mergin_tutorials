@@ -133,7 +133,7 @@ cd # go to home directory
 mkdir postgis_data
 git clone https://github.com/MerginMaps/server.git mergin
 cd mergin
-rm -rf .git
+sudo rm -r mergin/.git
 ```
 
 Add GEOACE remote and merge:
