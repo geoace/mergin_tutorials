@@ -133,18 +133,14 @@ cd # go to home directory
 mkdir postgis_data
 git clone https://github.com/MerginMaps/server.git mergin
 cd mergin
+rm -rf .git
 ```
 
 Add GEOACE remote and merge:
 ```bash
-git config --global user.email "example@email.com"
-git config --global user.name "John Doe"
-git remote add mergin_tutorials https://github.com/geoace/mergin_tutorials.git
-git fetch mergin_tutorials
-git checkout -b theirs-branch mergin_tutorials/main
-git checkout main
-rm docker-compose.yml README.md .prod.env
-git merge --strategy=recursive -X theirs theirs-branch
+cd # go to home directory
+git clone https://github.com/geoace/mergin_tutorials
+cp -r mergin_tutorials/. .
 ```
 
 Prepare environment files:
