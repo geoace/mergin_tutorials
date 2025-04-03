@@ -129,7 +129,8 @@ sudo rm -r certbot-nginx
 
 Clone Mergin Maps Server
 ```bash
-mkdir /home/*user*/postgis_data
+cd # go to home directory
+mkdir postgis_data
 git clone https://github.com/MerginMaps/server.git mergin
 cd mergin
 ```
