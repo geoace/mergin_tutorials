@@ -140,7 +140,7 @@ Add GEOACE remote and merge:
 ```bash
 cd # go to home directory
 git clone https://github.com/geoace/mergin_tutorials
-cp -r mergin_tutorials/. .
+cp -r mergin_tutorials/. mergin/
 ```
 
 Prepare environment files:
