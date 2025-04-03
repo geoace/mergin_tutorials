@@ -138,6 +138,8 @@ Add GEOACE remote and merge:
 ```bash
 git remote add mergin_tutorials https://github.com/geoace/mergin_tutorials.git
 git fetch mergin_tutorials
+git config --global user.email "example@email.com"
+git config --global user.name "John Doe"
 git merge --allow-unrelated-histories mergin_tutorials/main --no-commit --no-ff
 git checkout --theirs .
 ```
