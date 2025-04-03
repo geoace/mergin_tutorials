@@ -12,7 +12,7 @@
 - **Video 1:** [Introduction](https://youtu.be/fRnlBNpX1p0)
 - **Video 2:** [GCP and Virtual Machine Setup](https://youtu.be/Gt84lpa8ie4)
 - **Video 3:** [Setting up SSL/HTTPS on a Virtual Machine Using Docker and Certbot](https://youtu.be/-bZqrHo3WGI)
-- **Video 4:** [Watch here](https://youtu.be/fRnlBNpX1p0)
+- **Video 4:** [Coming Soon]()
 
 ---
 
