@@ -119,17 +119,23 @@ Visit `https://yourdomain.com` to verify HTTPS.
 
 ## 🗃️ Mergin Maps Stack Setup
 
+Remove 
+```bash
+docker rm $(docker ps -aq) -f
+docker rmi $(docker images -q) -f
+sudo rm -r certbot-nginx
+```
 ```bash
 mkdir /home/*user*/postgis_data
 git clone https://github.com/MerginMaps/server.git mergin
 cd mergin
 ```
 
-Add GeoACE remote and merge:
+Add GEOACE remote and merge:
 ```bash
-git remote add mergin git@github.com:geoace/mergin.git
+git remote add mergin https://github.com/geoace/mergin_tutorials.git
 git fetch mergin
-git merge --allow-unrelated-histories mergin/main --no-commit --no-ff
+git merge --allow-unrelated-histories mergin_tutorials/main --no-commit --no-ff
 git checkout --theirs .
 ```
 
