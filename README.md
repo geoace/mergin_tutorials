@@ -97,7 +97,8 @@ Visit your server at `http://<your-vm-ip>` to verify the homepage.
 
 If working, clean up:
 ```bash
-docker rm $(docker ps -aq) -f
+docker rm certbot nginx helloworld -f
+docker rmi certbot/certbot nginx crccheck/hello-world
 ```
 
 Link DNS zones and nameservers with GCP.
