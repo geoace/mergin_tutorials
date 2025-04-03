@@ -137,7 +137,7 @@ cd mergin
 Add GEOACE remote and merge:
 ```bash
 git remote add mergin https://github.com/geoace/mergin_tutorials.git
-git fetch mergin
+git fetch mergin_tutorials
 git merge --allow-unrelated-histories mergin_tutorials/main --no-commit --no-ff
 git checkout --theirs .
 ```
