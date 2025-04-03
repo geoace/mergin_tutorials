@@ -89,6 +89,8 @@ docker compose up -d
 #################################################################### START VIDEO 5 HERE
 
 # Initial Stack Setup
+mkdir /home/*user*/postgis_data
+
 git clone https://github.com/MerginMaps/server.git mergin
 
 cd mergin
@@ -99,7 +101,7 @@ git fetch mergin
 
 git merge --allow-unrelated-histories mergin/main --no-commit --no-ff
 
-git checkout --theirs . 
+git checkout --theirs .
 
 chmod +x start-nginx.sh
 
@@ -107,7 +109,13 @@ cp .env.template .env
 
 # Open the new .env file and modify the environment variables to suit your deployment
 
+
 nano .env
+
+# Open the .prod.env file and modify the environment variables to suit your deployment
+# NOTE for email password when using a gmail account, you can go here to generate a one-time 16-character passcode:
+# https://myaccount.google.com/apppasswords
+nano .prod.env
 
 ### The following section is based off the Mergin Maps-documented general installation instructions which can be found here: https://merginmaps.com/docs/server/install/
 mkdir -p projects # or wherever you set it to be
