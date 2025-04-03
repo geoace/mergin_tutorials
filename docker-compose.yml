@@ -1,0 +1,128 @@
+networks:
+  merginmaps:
+  api:
+  
+services:
+  postgis:
+    image: postgis/postgis:16-master
+    container_name: postgis
+    restart: always
+    networks:
+      - merginmaps
+      - api
+    environment:
+      - POSTGRES_DB:$POSTGRES_DB
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_TZ:$POSTGRES_TZ
+    volumes:
+      - $POSTGRES_DATA:/var/lib/postgresql/data
+      - $POSTGRES_INIT:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+ ############################################################      MERGIN MAPS START ############################################################     
+  redis:
+    image: redis
+    container_name: merginmaps-redis
+    restart: always
+    networks:
+      - merginmaps
+  server-gunicorn:
+    image: lutraconsulting/merginmaps-backend:2024.2.2
+    container_name: merginmaps-server
+    restart: always
+    user: 901:999
+    volumes:
+      - ./projects:/data
+      - ./server/entrypoint.sh:/app/entrypoint.sh
+    env_file:
+      - .prod.env
+    environment:
+      - DB_USER=$POSTGRES_USER
+      - DB_PASSWORD=$POSTGRES_PASSWORD
+    depends_on:
+      - postgis
+      - redis
+    command: [ "gunicorn --config config.py application:application" ]
+    networks:
+      - merginmaps
+  celery-beat:
+    image: lutraconsulting/merginmaps-backend:2024.2.2
+    container_name: celery-beat
+    restart: always
+    env_file:
+      - .prod.env
+    environment:
+      - GEVENT_WORKER=0
+      - NO_MONKEY_PATCH=1
+    volumes:
+      - ./server/entrypoint.sh:/app/entrypoint.sh
+    depends_on:
+      - redis
+      - server-gunicorn
+    command: [ "celery -A application.celery beat --loglevel=info" ]
+    networks:
+      - merginmaps
+  celery-worker:
+    image: lutraconsulting/merginmaps-backend:2024.2.2
+    container_name: celery-worker
+    restart: always
+    user: 901:999
+    env_file:
+      - .prod.env
+    environment:
+      - GEVENT_WORKER=0
+      - NO_MONKEY_PATCH=1
+    volumes:
+      - ./projects:/data
+      - ./server/entrypoint.sh:/app/entrypoint.sh
+    depends_on:
+      - redis
+      - server-gunicorn
+      - celery-beat
+    command: [ "celery -A application.celery worker --loglevel=info" ]
+    networks:
+      - merginmaps
+  web:
+    image: lutraconsulting/merginmaps-frontend:2024.2.2
+    container_name: merginmaps-web
+    restart: always
+    depends_on:
+      - server-gunicorn
+    links:
+      - postgis
+    networks:
+      - merginmaps
+
+############################################################      MERGIN MAPS END ############################################################
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: unless-stopped
+    # run nginx as built-in user but with group mergin-family for files permissions
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/nginx.http.template:/etc/nginx/nginx.http.template
+      - ./nginx/nginx.https.template:/etc/nginx/nginx.https.template
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - ./start-nginx.sh:/start-nginx.sh
+    environment:
+      - NGINX_APP_DOMAIN=$NGINX_APP_DOMAIN # Load from .env
+    entrypoint: ["/bin/bash", "-c", "/start-nginx.sh"]    
+    networks:
+      - merginmaps
+      - api
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    depends_on:
+      - nginx
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email ${NGINX_EMAIL} -d ${NGINX_APP_DOMAIN} --agree-tos --dry-run     
+    networks:
+      - merginmaps

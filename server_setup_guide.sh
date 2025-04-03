@@ -131,7 +131,3 @@ FIRST TIME ONLY: Initialize the database
 docker exec merginmaps-server flask init-db
 
 docker exec merginmaps-server flask user create <username> <password> --is-admin --email <email>
-
-
-
-

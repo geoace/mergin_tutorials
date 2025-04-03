@@ -1,20 +1,25 @@
-server {
-    listen 80;
-    listen [::]:80;
-    server_name _;  # Use underscore for all IP-based access or replace with actual IP address
+events {
+    worker_connections 1024;
+}
 
-    # Redirect HTTP to HTTPS (optional, remove if not using HTTPS)
+
+
+# Always redirect HTTP to HTTPS
+server {
+    listen 80 default_server;
+    server_name _;
+
     return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
-    server_name _;  # Use underscore for all IP-based access or replace with actual IP address
 
-    # SSL configuration (optional, if you're not using SSL with the IP, remove these lines)
-    ssl_certificate /etc/letsencrypt/live/subdomain.domain.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/subdomain.domain.com/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/$NGINX_APP_DOMAIN/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$NGINX_APP_DOMAIN/privkey.pem;
+
+    server_name $NGINX_APP_DOMAIN www.$NGINX_APP_DOMAIN;
 
     client_max_body_size 4G;
 
@@ -51,3 +56,4 @@ server {
         alias /data;
     }
 }
+
