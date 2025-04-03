@@ -119,12 +119,14 @@ Visit `https://yourdomain.com` to verify HTTPS.
 
 ## 🗃️ Mergin Maps Stack Setup
 
-Remove 
+Remove SSL setup from the last video
 ```bash
 docker rm $(docker ps -aq) -f
 docker rmi $(docker images -q) -f
 sudo rm -r certbot-nginx
 ```
+
+Clone Mergin Maps Server
 ```bash
 mkdir /home/*user*/postgis_data
 git clone https://github.com/MerginMaps/server.git mergin
