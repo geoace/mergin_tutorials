@@ -141,6 +141,7 @@ Add GEOACE remote and merge:
 cd # go to home directory
 git clone https://github.com/geoace/mergin_tutorials
 cp -r mergin_tutorials/. mergin/
+sudo rm -r mergin_tutorials
 ```
 
 Prepare environment files:
