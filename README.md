@@ -153,6 +153,8 @@ nano .prod.env
 ```
 
 > 💡 Use app passwords for Gmail from: https://myaccount.google.com/apppasswords
+> NOTE THAT THIS REQUIRES TWO FACTOR AUTHENTICATION ON YOUR GMAIL ACCOUNT. YOU CAN TURN IT ON BY GOING HERE:
+> https://myaccount.google.com/security
 
 Create project directory and set permissions:
 ```bash
