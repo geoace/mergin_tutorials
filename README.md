@@ -164,6 +164,16 @@ sudo chmod g+s ./projects/
 
 Start the stack:
 ```bash
+# Remove Dry Run under certbot command and save
+nano docker-compose.yml
+
+# Run the stack to get certs
+docker compose up
+
+# Control + C to tear stop the stack, then remove the container stack
+docker rm $(docker ps -aq) -f
+
+# Run the stack with HTTPS configuration
 docker compose up -d
 ```
 
