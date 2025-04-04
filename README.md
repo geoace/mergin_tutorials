@@ -16,8 +16,7 @@
 
 ---
 
-## 🚀 Step-by-Step Installation Guide
-## Video 2
+# VIDEO 2 STARTS HERE
 ### 1. Fresh Install & Docker Setup
 
 ```bash
@@ -64,8 +63,8 @@ newgrp docker
 docker run hello-world
 ```
 
----
 
+# VIDEO 3 STARTS HERE
 ## 🛑 Stop Apache (If Installed)
 
 ```bash
