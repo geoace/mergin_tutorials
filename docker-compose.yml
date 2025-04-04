@@ -11,10 +11,10 @@ services:
       - merginmaps
       - api
     environment:
-      - POSTGRES_DB:$POSTGRES_DB
-      - POSTGRES_USER=$POSTGRES_USER
-      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-      - POSTGRES_TZ:$POSTGRES_TZ
+      - POSTGRES_DB:${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_TZ:${POSTGRES_TZ}
     volumes:
       - $POSTGRES_DATA:/var/lib/postgresql/data
       - $POSTGRES_INIT:/docker-entrypoint-initdb.d
