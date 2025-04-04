@@ -73,6 +73,8 @@ services:
     environment:
       - GEVENT_WORKER=0
       - NO_MONKEY_PATCH=1
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - ./projects:/data
       - ./server/entrypoint.sh:/app/entrypoint.sh
