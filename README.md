@@ -17,7 +17,7 @@
 ---
 
 ## 🚀 Step-by-Step Installation Guide
-
+## Video 2
 ### 1. Fresh Install & Docker Setup
 
 ```bash
@@ -77,7 +77,7 @@ sudo apt autoremove -y
 
 ---
 
-## 🌐 NGINX + Certbot Setup
+## 🌐 NGINX + Certbot Setup (Video 3)
 
 ```bash
 git clone https://github.com/geoace/certbot-nginx.git
@@ -118,7 +118,7 @@ Visit `https://yourdomain.com` to verify HTTPS.
 
 ---
 
-## 🗃️ Mergin Maps Stack Setup
+## 🗃️ Mergin Maps Stack Setup (Video 4)
 
 Remove SSL setup from the last video
 ```bash
