@@ -38,8 +38,8 @@ services:
     env_file:
       - .prod.env
     environment:
-      - DB_USER=$POSTGRES_USER
-      - DB_PASSWORD=$POSTGRES_PASSWORD
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
     depends_on:
       - postgis
       - redis
