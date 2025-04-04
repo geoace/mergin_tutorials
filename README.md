@@ -117,7 +117,8 @@ Visit `https://yourdomain.com` to verify HTTPS.
 
 ---
 
-## 🗃️ Mergin Maps Stack Setup (Video 4)
+# VIDEO 4 STARTS HERE
+## 🗃️ Mergin Maps Stack Setup
 
 Remove SSL setup from the last video
 ```bash
