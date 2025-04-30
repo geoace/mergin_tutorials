@@ -54,7 +54,7 @@ http {
     
         location /download/ {
             internal;
-            alias /data;
+            alias /data/;
         }
     }
 }
