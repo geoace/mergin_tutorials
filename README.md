@@ -145,6 +145,7 @@ sudo rm -r mergin_tutorials
 
 Prepare environment files:
 ```bash
+cd mergin
 chmod +x start-nginx.sh
 cp .env.template .env
 nano .env
