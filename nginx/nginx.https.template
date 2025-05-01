@@ -1,57 +1,66 @@
+pid /tmp/nginx.pid;
+
 events {
     worker_connections 1024;
 }
 
 
 http {
+    # ✅ Unprivileged nginx can't write to /var/cache/nginx
+    client_body_temp_path /tmp/nginx_temp;
+
     # Always redirect HTTP to HTTPS
     server {
         listen 80 default_server;
         server_name _;
-    
+
         return 301 https://$host$request_uri;
     }
-
 
     server {
         listen 443 ssl;
         listen [::]:443 ssl;
-    
+
         ssl_certificate     /etc/letsencrypt/live/$NGINX_APP_DOMAIN/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/$NGINX_APP_DOMAIN/privkey.pem;
-    
+
         server_name $NGINX_APP_DOMAIN www.$NGINX_APP_DOMAIN;
-    
+
         client_max_body_size 4G;
-    
+
         location / {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header Host $http_host;
             proxy_redirect off;
-            proxy_pass http://merginmaps-web;
+            proxy_pass http://merginmaps-web:8080;
         }
-    
+
         location ~ /v1/project/download/ {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header Host $http_host;
             proxy_redirect off;
             proxy_pass http://merginmaps-server:5000;
-    
+
             client_max_body_size 0;
             proxy_http_version 1.1;
             proxy_request_buffering off;
             proxy_buffering off;
         }
-    
+
         location ~ ^/(v1/|v2/|app/|ping|config) {
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header Host $http_host;
             proxy_pass http://merginmaps-server:5000;
         }
-    
+
+
+        location ~ /.well-known/acme-challenge/ {
+            root /var/www/certbot;
+        }
+
         location /download/ {
             internal;
             alias /data/;
