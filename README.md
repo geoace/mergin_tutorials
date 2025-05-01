@@ -173,6 +173,16 @@ docker compose up
 
 # Control + C to tear stop the stack, then remove the container stack
 docker rm $(docker ps -aq) -f
+```
+Make the certificates readable by nginx container and run the stack with HTTPS configuration
+```bash
+# Set group to nginx container group (999) on cert files
+sudo chgrp -R 999 ./certbot/conf/live
+sudo chgrp -R 999 ./certbot/conf/archive
+
+# Give group read permission to all files and execute permission to all dirs
+sudo find ./certbot/conf/live ./certbot/conf/archive -type f -exec chmod 640 {} \;
+sudo find ./certbot/conf/live ./certbot/conf/archive -type d -exec chmod 750 {} \;
 
 # Run the stack with HTTPS configuration
 docker compose up -d
