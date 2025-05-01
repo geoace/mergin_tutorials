@@ -28,7 +28,7 @@ services:
     networks:
       - merginmaps
   server-gunicorn:
-    image: lutraconsulting/merginmaps-backend:2024.2.2
+    image: lutraconsulting/merginmaps-backend:2025.2.2
     container_name: merginmaps-server
     restart: always
     user: 901:999
@@ -47,7 +47,7 @@ services:
     networks:
       - merginmaps
   celery-beat:
-    image: lutraconsulting/merginmaps-backend:2024.2.2
+    image: lutraconsulting/merginmaps-backend:2025.2.2
     container_name: celery-beat
     restart: always
     env_file:
@@ -64,7 +64,7 @@ services:
     networks:
       - merginmaps
   celery-worker:
-    image: lutraconsulting/merginmaps-backend:2024.2.2
+    image: lutraconsulting/merginmaps-backend:2025.2.2
     container_name: celery-worker
     restart: always
     user: 901:999
@@ -86,7 +86,7 @@ services:
     networks:
       - merginmaps
   web:
-    image: lutraconsulting/merginmaps-frontend:2024.2.2
+    image: lutraconsulting/merginmaps-frontend:2025.2.2
     container_name: merginmaps-web
     restart: always
     depends_on:
@@ -98,19 +98,21 @@ services:
 
 ############################################################      MERGIN MAPS END ############################################################
   nginx:
-    image: nginx
+    image: nginxinc/nginx-unprivileged:1.27
     container_name: nginx
     restart: unless-stopped
     # run nginx as built-in user but with group mergin-family for files permissions
     ports:
       - 80:80
       - 443:443
+    user: 101:999
     volumes:
       - ./nginx/nginx.http.template:/etc/nginx/nginx.http.template
       - ./nginx/nginx.https.template:/etc/nginx/nginx.https.template
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
       - ./start-nginx.sh:/start-nginx.sh
+      - ./projects:/data
     environment:
       - NGINX_APP_DOMAIN=$NGINX_APP_DOMAIN # Load from .env
     entrypoint: ["/bin/bash", "-c", "/start-nginx.sh"]    
